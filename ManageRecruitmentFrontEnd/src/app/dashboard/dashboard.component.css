@@ -1,3 +1,13 @@
 .center {
     text-align: center
     }
+
+.chart__wrapper {
+    display: block;
+    border: 1px solid #c8c8c8;
+    padding: 30px 10px;
+}
+
+p-progressSpinner {
+    opacity: 0.3;
+}

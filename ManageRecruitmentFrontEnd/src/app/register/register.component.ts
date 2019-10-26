@@ -5,7 +5,16 @@ import { first } from 'rxjs/operators';
 
 import { AlertService, UserService } from '../_services';
 
-@Component({templateUrl: 'register.component.html'})
+export const PASSWORD_PATTERN='^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$';
+export const PASS_PATTERN_MESSAGE ='at least one uppercase letter, one lowercase letter and one number';
+
+// @Component({templateUrl: 'register.component.html',styleUrls: ['./register.component.css']}),
+@Component({
+    // selector: 'app-notification',
+    templateUrl:'./register.component.html',
+    styleUrls: ['./register.component.css']
+    // providers: [MessageService]
+  })
 export class RegisterComponent implements OnInit {
     registerForm: FormGroup;
     loading = false;
@@ -19,10 +28,13 @@ export class RegisterComponent implements OnInit {
 
     ngOnInit() {
         this.registerForm = this.formBuilder.group({
-            firstName: ['', Validators.required],
-            lastName: ['', Validators.required],
-            username: ['', Validators.required],
-            password: ['', [Validators.required, Validators.minLength(6)]]
+            firstName: ['',[Validators.required, Validators.pattern('[a-zA-Z ]*')]],
+            lastName: ['', [Validators.required,Validators.pattern('[a-zA-Z ]*')]],
+            username: ['', [Validators.required,Validators.maxLength(12)]],
+            emailId: ['', [Validators.required, Validators.email]],
+            password: ['', [Validators.required,Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')
+        ]]
+
         });
     }
 
@@ -39,9 +51,9 @@ export class RegisterComponent implements OnInit {
 
         this.loading = true;
         this.userService.register(this.registerForm.value)
-            .pipe(first())
             .subscribe(
                 data => {
+                   // debugger;
                     this.alertService.success('Registration successful', true);
                     this.router.navigate(['/login']);
                 },

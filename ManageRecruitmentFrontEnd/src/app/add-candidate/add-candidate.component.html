@@ -1,0 +1,386 @@
+<div class="container">
+  <div class="row">
+
+    <div class="form-wrapper  col-md-6 col-md-offset-3">
+      <form [formGroup]="CandidatureDetails" class="form-group">
+        <!-- <p-steps [model]="formSteps" [(activeIndex)]="activeIndex" [readonly]="false"></p-steps> -->
+        <div *ngIf="showFormErrors" [ngClass]="'error-message'">Error in form</div>
+        
+        <div class="ui-steps ui-widget ui-helper-clearfix" ng-reflect-ng-class="[object Object]">
+          <ul role="tablist">
+
+          <li [ngClass]="step1Css" ng-reflect-klass="ui-steps-item" ng-reflect-ng-class="[object Object]" (click)="changeStep(1)">
+            <a class="ui-menuitem-link"><span class="ui-steps-number">1</span><span class="ui-steps-title">Personal</span></a>
+        </li>
+       
+       <li [ngClass]="step2Css" ng-reflect-klass="ui-steps-item" ng-reflect-ng-class="[object Object]" (click)="changeStep(2)">
+         <a class="ui-menuitem-link"><span class="ui-steps-number">2</span><span class="ui-steps-title">Interview</span></a>
+       </li>
+       
+       <li [ngClass]="step3Css" ng-reflect-klass="ui-steps-item" ng-reflect-ng-class="[object Object]" (click)="changeStep(3)">
+        <a class="ui-menuitem-link"><span class="ui-steps-number">3</span><span class="ui-steps-title">HR</span></a>
+      </li>
+      
+      <li [ngClass]="step4Css" ng-reflect-klass="ui-steps-item" ng-reflect-ng-class="[object Object]"(click)="changeStep(4)">
+         <a class="ui-menuitem-link" ><span class="ui-steps-number">4</span><span class="ui-steps-title">Other</span></a>
+        </li>
+      
+      </ul>
+    </div>
+
+
+        <fieldset class="step-1" [hidden]="!(activeIndex == 1)">
+         
+          <label for="candidateName" class="input">Candidate Name</label>
+          <input name="candidateName" class="form-control" type="text" [formControl]="f.candidateName" [ngClass]="{ 'is-invalid': (f.candidateName.touched || showFormErrors ) && f.candidateName.errors }">
+          <div class="invalid-feedback" *ngIf="(f.candidateName.touched|| showFormErrors ) && f.candidateName.errors"> 
+            <div *ngIf="f.candidateName.errors.required">Candidate Name is required</div>
+            <div *ngIf="f.candidateName.errors.pattern">Should contains only Alphabets</div>                 
+          </div>
+          <br>
+
+          <label for="roleOfResponsibilities" class="input">Role</label>
+          <input name="roleOfResponsibilities" class="form-control" type="roleOfResponsibilities" [formControl]="f.roleOfResponsibilities"
+            [ngClass]="{ 'is-invalid':(f.roleOfResponsibilities.touched || showFormErrors) && f.roleOfResponsibilities.errors }" />
+          <div class="invalid-feedback" *ngIf="(f.roleOfResponsibilities.touched || showFormErrors ) && f.roleOfResponsibilities.errors "> 
+            <div *ngIf="f.roleOfResponsibilities.errors.required">Role is required</div>
+            <div *ngIf="f.roleOfResponsibilities.errors.pattern">Souuld contain only alphabats</div>
+          </div><br>
+
+          <label for="contactNo" class="input">Contact Number</label>
+          <input name="contactNo" class="form-control contact" type="text" maxlength="10" [formControl]="f.contactNo"
+            [ngClass]="{ 'is-invalid':(f.contactNo.touched || showFormErrors) && f.contactNo.errors }">
+          <div class="invalid-feedback" *ngIf="(f.contactNo.touched || showFormErrors ) && f.contactNo.errors "> 
+            <div *ngIf="f.contactNo.errors.required">Contact number is required</div>
+            <div *ngIf="f.contactNo.errors.pattern">Should have atleast 10 digits</div>
+            <!-- <div *ngIf="f.contactNo.errors.pattern">Should contain only numbers starting with digit 1-9</div>                  -->
+          </div>
+          <br>
+
+          <label for="emailId" class="input">Email</label>
+          <input name="emailId" class="form-control" type="email" [formControl]="f.emailId" [ngClass]="{ 'is-invalid':(f.emailId.touched || showFormErrors) && f.emailId.errors }" />
+          <div class="invalid-feedback" *ngIf="(f.emailId.touched || showFormErrors ) && f.emailId.errors "> 
+            <div *ngIf="f.emailId.errors.required">Email id is required</div>
+            <div *ngIf="f.emailId.errors.pattern">Email should be in proper format like abs@xyz.xy</div>
+          </div>
+          <br>
+
+          <label for="totalExperience" class="input">Total Experience(In Years)</label>
+          <input name="totalExperience" class="form-control" [formControl]="f.totalExperience" type="number" step="0.1"
+            [ngClass]="{ 'is-invalid':(f.totalExperience.touched || showFormErrors) && f.totalExperience.errors }" />
+          <div class="invalid-feedback" *ngIf="(f.totalExperience.touched || showFormErrors ) && f.totalExperience.errors "> 
+            <div *ngIf="f.totalExperience.errors.required">Experience is required</div>
+          </div>
+          <br>
+
+          <label for="relevantExperience" class="input">Relevant Experience(In Years)</label>
+          <input name="relevantExperience" class="form-control" [formControl]="f.relevantExperience" type="number" step="0.1"
+            [ngClass]="{ 'is-invalid':(f.relevantExperience.touched || showFormErrors) && f.relevantExperience.errors }" />
+          <div class="invalid-feedback" *ngIf="(f.relevantExperience.touched || showFormErrors ) && f.relevantExperience.errors "> 
+            <div *ngIf="f.relevantExperience.errors.required">Relevant experience is required</div>
+          </div>
+          <br>
+          <label for="noticePeriod" class="input">Notice Period(In Days)</label>
+          <input name="noticePeriod" class="form-control" [formControl]="f.noticePeriod" type="number" [ngClass]="{ 'is-invalid':(f.noticePeriod.touched || showFormErrors) && f.noticePeriod.errors }" />
+          <div class="invalid-feedback" *ngIf="(f.noticePeriod.touched || showFormErrors ) && f.noticePeriod.errors "> 
+            <div *ngIf="f.noticePeriod.errors.required">Notice period is required</div>
+            <div *ngIf="f.noticePeriod.errors.max">Notice period shoud not be more than 90 days</div>
+          </div>
+          <br>
+          
+          <label for="ctc" class="input">CTC(In Lakh)</label>
+          <input name="ctc" class="form-control" [formControl]="f.ctc" type="number" step="0.1" [ngClass]="{ 'is-invalid':(f.ctc.touched || showFormErrors) && f.ctc.errors }" />
+          <div class="invalid-feedback" *ngIf="(f.ctc.touched || showFormErrors ) && f.ctc.errors "> 
+            <div *ngIf="f.ctc.errors.required">CTC is required</div>
+          </div>
+          <br>
+          <label for="expectedCTC" class="input">Expected CTC(In Lakh)</label>
+          <input name="ectc" class="form-control" [formControl]="CandidatureDetails.controls['ectc']" type="number"
+            step="0.1" [ngClass]="{ 'is-invalid':(f.ectc.touched || showFormErrors) && f.ectc.errors }" />
+          <div class="invalid-feedback" *ngIf="(f.ectc.touched || showFormErrors ) && f.ectc.errors "> 
+            <div *ngIf="f.ectc.errors.required">Expected CTC is required</div>
+          </div>
+          <br>
+
+          <label for="currentLocation" class="input">Current Location</label>
+          <input name="currentLocation" class="form-control" [formControl]="f.currentLocation" type="text" [ngClass]="{ 'is-invalid':(f.currentLocation.touched || showFormErrors) && f.currentLocation.errors }" />
+          <div class="invalid-feedback" *ngIf="(f.currentLocation.touched || showFormErrors ) && f.currentLocation.errors "> 
+            <div *ngIf="f.currentLocation.errors.required">Field is required</div>
+            <div *ngIf="f.currentLocation.errors.pattern">Souuld contain only alphabats</div>
+          </div>
+          <br>
+          <label for="preferredLocation" class="input">Preferred Location</label>
+          <input name="preferredLocation" class="form-control" [formControl]="f.preferredLocation" type="text"
+            [ngClass]="{ 'is-invalid':(f.preferredLocation.touched || showFormErrors) && f.preferredLocation.errors }" />
+          <div class="invalid-feedback" *ngIf="(f.preferredLocation.touched || showFormErrors ) && f.preferredLocation.errors "> 
+            <div *ngIf="f.preferredLocation.errors.required">Field is required</div>
+            <div *ngIf="f.preferredLocation.errors.pattern">Souuld contain only alphabats</div>
+          </div>
+
+          <br>
+          <label for="positionLocation" class="input">Position Location</label>
+          <select name="positionLocation"  class="form-control" [formControl]="f.positionLocation" >
+              <option *ngFor="let location of locationList" [ngValue]="location">{{location}}</option>
+          </select>
+          <!-- <input name="positionLocation" class="form-control" [formControl]="f.positionLocation" type="text" [ngClass]="{ 'is-invalid':(f.positionLocation.touched || showFormErrors) && f.positionLocation.errors }" />
+          <div class="invalid-feedback" *ngIf="(f.positionLocation.touched || showFormErrors ) && f.positionLocation.errors "> 
+            <div *ngIf="f.positionLocation.errors.required">Field is required</div>
+            <div *ngIf="f.positionLocation.errors.pattern">Souuld contain only alphabats</div>
+          </div> -->
+          <br>
+
+          <label for="modeOfHiring" class="input">Mode Of Hiring</label>
+          <select name="modeOfHiring"  class="form-control" [formControl]="f.modeOfHiring" >
+              <option *ngFor="let status of mohList" [ngValue]="status">{{status}}</option>
+          </select>
+          <!-- <input name="modeOfHiring" class="form-control" [formControl]="f.modeOfHiring" type="text" [ngClass]="{ 'is-invalid':(f.modeOfHiring.touched || showFormErrors) && f.modeOfHiring.errors }" />
+          <div class="invalid-feedback" *ngIf="(f.modeOfHiring.touched || showFormErrors ) && f.modeOfHiring.errors "> 
+            <div *ngIf="f.modeOfHiring.errors.required">Mode of hiring is mandatory field</div>
+          </div> -->
+          <br>
+
+          <label for="vendorName" class="input">Source</label>
+          <input name="vendorName" class="form-control" [formControl]="f.vendorName" type="text" [ngClass]="{ 'is-invalid':(f.vendorName.touched || showFormErrors) && f.vendorName.errors }" />
+          <div class="invalid-feedback" *ngIf="(f.vendorName.touched || showFormErrors ) && f.vendorName.errors "> 
+            <div *ngIf="f.vendorName.errors.required">Source is required</div>
+          </div>
+
+          <br>
+          <button class="btn btn-primary btn-sm" (click)="changeStep(2)" style="width:-webkit-fill-available">Next</button>
+        </fieldset>
+
+        <!-- Step 2-->
+        <fieldset [hidden]="!(activeIndex==2)" class="step-2">
+
+          <label for="profileSharedDate" class="input">Profile Shared Date</label>
+          <input name="profileSharedDate" class="form-control" [formControl]="f.profileSharedDate" type="date"
+            [ngClass]="{ 'is-invalid':(f.profileSharedDate.touched || showFormErrors) && f.profileSharedDate.errors }" />
+          <div class="invalid-feedback" *ngIf="(f.profileSharedDate.touched || showFormErrors ) && f.profileSharedDate.errors "> 
+            <div *ngIf="f.profileSharedDate.errors.required">Profile shared date is mandatory field</div>
+          </div>
+          <br>
+
+          <label for="screeningDate" class="input">Screening Date</label>
+          <input name="screeningDate" class="form-control" [formControl]="f.screeningDate" type="date" [ngClass]="{ 'is-invalid':(f.screeningDate.touched || showFormErrors) && f.screeningDate.errors }" />
+          <div class="invalid-feedback" *ngIf="(f.screeningDate.touched || showFormErrors ) && f.screeningDate.errors "> 
+            <div *ngIf="f.screeningDate.errors.required">Screening Date is mandatory field</div>
+          </div>
+          <br>
+          <label for="screeningDoneBy" class="input">Screening Done By</label>
+          <input name="screeningDoneBy" class="form-control" [formControl]="f.screeningDoneBy" type="text" [ngClass]="{ 'is-invalid':(f.screeningDoneBy.touched || showFormErrors) && f.screeningDoneBy.errors }" />
+          <div class="invalid-feedback" *ngIf="(f.screeningDoneBy.touched || showFormErrors ) && f.screeningDoneBy.errors "> 
+            <div *ngIf="f.screeningDoneBy.errors.required">Screening done by is mandatory field</div>
+            <div *ngIf="f.screeningDoneBy.errors.pattern">Should contains only alphabats</div>
+          </div>
+          <br>
+
+          <label for="screeningStatus" class="input">Screening Status</label>         
+          <!--   <select name="screeningStatus"  class="form-control" [formControl]="f.screeningStatus" >
+              <option *ngFor="let status of interviewStatusList" [ngValue]="status">{{status}}</option>
+          </select> -->
+          <input name="screeningStatus" class="form-control" [formControl]="f.screeningStatus" type="text" [ngClass]="{ 'is-invalid':(f.screeningStatus.touched || showFormErrors) && f.screeningStatus.errors }" />
+          <div class="invalid-feedback" *ngIf="(f.screeningStatus.touched || showFormErrors ) && f.screeningStatus.errors "> 
+            <div *ngIf="f.screeningStatus.errors.required">Screening status is mandatory field</div>
+          </div>
+          <br>
+          <label for="firstRoundDate" class="input">First Round Date</label>
+          <input name="firstRoundDate" class="form-control" [formControl]="f.firstRoundDate" type="date" [ngClass]="{ 'is-invalid':(f.firstRoundDate.touched || showFormErrors) && f.firstRoundDate.errors }" />
+          <div class="invalid-feedback" *ngIf="(f.firstRoundDate.touched || showFormErrors ) && f.firstRoundDate.errors "> 
+            <div *ngIf="f.firstRoundDate.errors.required">First Round Date is mandatory field</div>
+          </div>
+
+          <br>
+          <label for="firstRoundTakenBy" class="input">First Round TakenBy</label>
+          <input name="firstRoundTakenBy" class="form-control" [formControl]="f.firstRoundTakenBy" type="text"
+            [ngClass]="{ 'is-invalid':(f.firstRoundTakenBy.touched || showFormErrors) && f.firstRoundTakenBy.errors }" />
+          <div class="invalid-feedback" *ngIf="(f.firstRoundTakenBy.touched || showFormErrors ) && f.firstRoundTakenBy.errors "> 
+            <div *ngIf="f.firstRoundTakenBy.errors.required">Field is mandatory </div>
+            <div *ngIf="f.firstRoundTakenBy.errors.pattern">Should contains only alphabats</div>
+          </div>
+          <br>
+
+          <label for="firstRoundStatus" class="input">First Round Status</label>
+          <select name="firstRoundStatus"  class="form-control" [formControl]="f.firstRoundStatus" >
+              <option *ngFor="let status of interviewStatusList" [ngValue]="status">{{status}}</option>
+          </select>
+          <!-- <input name="firstRoundStatus" class="form-control" [formControl]="f.firstRoundStatus" type="text" [ngClass]="{ 'is-invalid':(f.firstRoundStatus.touched || showFormErrors) && f.firstRoundStatus.errors }" />
+          <div class="invalid-feedback" *ngIf="(f.firstRoundStatus.touched || showFormErrors ) && f.firstRoundStatus.errors "> 
+            <div *ngIf="f.firstRoundStatus.errors.required">First Round Status is mandatory field</div>
+            <div *ngIf="f.firstRoundStatus.errors.pattern">Should contains only alphabats</div>
+          </div> -->
+          <br>
+
+          <label for="secondRoundDate" class="input">Second Round Date</label>
+          <input name="secondRoundDate" class="form-control" [formControl]="f.secondRoundDate" type="date" [ngClass]="{ 'is-invalid':(f.secondRoundDate.touched || showFormErrors) && f.secondRoundDate.errors }" />
+          <div class="invalid-feedback" *ngIf="(f.secondRoundDate.touched || showFormErrors ) && f.secondRoundDate.errors "> 
+            <div *ngIf="f.secondRoundDate.errors.required">Second Round Date is mandatory field</div>
+          </div>
+          <br>
+          <label for="secondRoundTakenBy" class="input">Second Round TakenBy</label>
+          <input name="secondRoundTakenBy" class="form-control" [formControl]="f.secondRoundTakenBy" type="text"
+            [ngClass]="{ 'is-invalid':(f.secondRoundTakenBy.touched || showFormErrors) && f.secondRoundTakenBy.errors }" />
+          <div class="invalid-feedback" *ngIf="(f.secondRoundTakenBy.touched || showFormErrors ) && f.secondRoundTakenBy.errors "> 
+            <div *ngIf="f.secondRoundTakenBy.errors.required">Field is mandatory </div>
+            <div *ngIf="f.secondRoundTakenBy.errors.pattern">Should contains only alphabats</div>
+          </div>
+          <br>
+
+          <label for="secondRoundStatus" class="input">Second Round Status</label>
+          <select name="secondRoundStatus"  class="form-control" [formControl]="f.secondRoundStatus" >
+              <option *ngFor="let status of interviewStatusList" [ngValue]="status">{{status}}</option>
+          </select>
+          <!-- <input name="secondRoundStatus" class="form-control" [formControl]="f.secondRoundStatus" type="text"
+            [ngClass]="{ 'is-invalid':(f.secondRoundStatus.touched || showFormErrors) && f.secondRoundStatus.errors }" />
+          <div class="invalid-feedback" *ngIf="(f.secondRoundStatus.touched || showFormErrors ) && f.secondRoundStatus.errors "> 
+            <div *ngIf="f.secondRoundStatus.errors.required">Second Round Status is mandatory field</div>
+            <div *ngIf="f.secondRoundStatus.errors.pattern">Should contains only alphabats</div>
+          </div> -->
+          <br>
+
+          <label for="finalRoundDate" class="input">Final Round Date</label>
+          <input name="finalRoundDate" class="form-control" [formControl]="f.finalRoundDate" type="date" />
+          <br>
+          <label for="finalRoundTakenBy" class="input">Final Round TakenBy</label>
+          <input name="finalRoundTakenBy" class="form-control" [formControl]="f.finalRoundTakenBy" type="text">
+
+          <br>
+          <label for="finalRoundStatus" class="input">Final Round Status</label>
+          <select name="finalRoundStatus"  class="form-control" [formControl]="f.finalRoundStatus" >
+              <option *ngFor="let status of interviewStatusList" [ngValue]="status">{{status}}</option>
+          </select>
+          <!-- <input name="finalRoundStatus" class="form-control" [formControl]="f.finalRoundStatus" type="text"> -->
+          <br>
+
+          <div class="row">
+              <div class="col-sm-6 text-left">
+                  <button class="btn btn-primary btn-sm" (click)="changeStep(1)" style="margin-right:30px">Prev</button>
+              </div>
+              <div class="col-sm-6 text-right">
+                  <button class="btn btn-primary btn-sm" (click)="changeStep(3)" style="margin-right:30px">Next</button>
+              </div>
+            </div>
+        </fieldset>
+
+        <!--Step 3-->
+        <fieldset [hidden]="!(activeIndex == 3)" class="step-3">
+          <label for="hrOrPnStageRound" class="input">HR Round </label>
+          <input name="hrOrPnStageRound" class="form-control" [formControl]="f.hrOrPnStageRound" type="text">
+          <br>
+
+          <label for="hrOrPnStageStatus" class="input">HR Round Status</label>
+          <select name="hrOrPnStageStatus"  class="form-control" [formControl]="f.hrOrPnStageStatus" >
+              <option *ngFor="let status of interviewStatusList" [ngValue]="status">{{status}}</option>
+          </select>
+          <!-- <input name="hrOrPnStageStatus" class="form-control" [formControl]="f.hrOrPnStageStatus" type="text"> -->
+          <br>
+
+          <label for="hrOrPnStageDate" class="input">HR Round Date</label>
+          <input name="hrOrPnStageDate" class="form-control" [formControl]="f.hrOrPnStageDate" type="date">
+          <br>
+
+          <label for="finalStatus" class="input">Final Status</label>
+          <select name="finalStatus"  class="form-control" [formControl]="f.finalStatus" >
+              <option *ngFor="let status of finalStatusList" [ngValue]="status">{{status}}</option>
+          </select>
+          <!-- <input name="finalStatus" class="form-control" [formControl]="f.finalStatus" type="text"> -->
+          <br>
+
+          <label for="status" class="input">Status</label>
+          <!-- <input name="status" class="form-control" [formControl]="f.status" type="text"> -->
+          <select name="status"  class="form-control" [formControl]="f.status" >
+              <option *ngFor="let status of statusList" [ngValue]="status">{{status}}</option>
+          </select>
+          <br>
+
+          <label for="joiningDate" class="input">Joining Date</label>
+          <input name="joiningDate" class="form-control" [formControl]="f.joiningDate" type="date">
+          <br>
+
+          <label for="joiningStatus" class="input">Joining Status</label>
+          <input name="joiningStatus" class="form-control" [formControl]="f.joiningStatus" type="text">
+          <br>
+          <div class="row">
+              <div class="col-sm-6 text-left">
+                  <button class="btn btn-primary btn-sm" (click)="changeStep(2)" style="margin-right:30px">Prev</button>
+              </div>
+              <div class="col-sm-6 text-right">
+                  <button class="btn btn-primary btn-sm" (click)="changeStep(4)" style="margin-right:30px">Next</button>
+              </div>
+            </div>
+        </fieldset>
+
+<!--Step 4-->
+        <fieldset [hidden]="!(activeIndex == 4)" class="step-4">
+          <label for="description" class="input">Description</label>
+          <input name="description" class="form-control" [formControl]="f.description" type="text">
+          <br>
+
+          <label for="actionPending" class="input">Action Pending</label>
+          <input name="actionPending" class="form-control" [formControl]="f.actionPending" type="text">
+          <br>
+
+          <label for="client" class="input">Client</label>
+          <select name="client"  class="form-control" [formControl]="f.client" >
+              <option *ngFor="let client of clientList" [ngValue]="client">{{client}}</option>
+          </select>
+          <!-- <input name="client" class="form-control" [formControl]="CandidatureDetails.controls['client']" type="text"> -->
+          <br>
+          <label for="profileStatus" class="input">Profile Status</label>
+          <select name="profileStatus" class="form-control" [formControl]="f.profileStatus" >
+              <option *ngFor="let status of profileStatusList" [ngValue]="status">{{status}}</option>
+          </select>
+          <br>
+          <label for="finalTechSelectionDate" class="input">Final Tech Selection Date</label>
+          <input name="finalTechSelectionDate" class="form-control" [formControl]="f.finalTechSelectionDate" type="date">
+          <br>
+
+          <!-- <button class="btn btn-primary" (click)="changeStep(3)">Prev</button>
+          <button class="btn btn-primary" (click)="addCandidate()">Save</button> -->
+
+          <div class="row">
+              <div class="col-sm-4 text-left">
+                  <button class="btn btn-primary btn-sm" (click)="changeStep(3)" style="margin-right:30px">Prev</button>
+              </div>
+              <div class="col-sm-4 text-right">
+               <button [disabled]="!CandidatureDetails.valid" type="button" class="btn btn-custom btn-sm" (click)="addCandidate()">Save</button>
+              </div>
+              <div class="col-sm-4 text-right">
+                  <button type="button" class="btn btn-primary btn-sm" routerLink="/home">Cancel</button> 
+                </div>
+            </div>
+
+      </fieldset>
+<br>
+        <div class="row" style="text-align: center;">
+            <a routerLink="/home">Back to Home</a><br>
+          </div>
+
+          <div class="content-section implementation">
+              <p-toast [style]="{marginTop: '80px'}"></p-toast>
+              <p-toast [style]="{marginTop: '80px'}" position="top-left" key="tl"></p-toast>
+              <p-toast [style]="{marginTop: '80px'}" position="top-center" key="tc"></p-toast>
+              <p-toast [style]="{marginTop: '80px'}" styleClass="custom-toast" key="custom" position="bottom-center"></p-toast>
+              <p-toast position="center" key="c" (onClose)="onReject()" [modal]="true" [baseZIndex]="5000">
+                <ng-template let-message pTemplate="message">
+                  <div class="text-center p-4">
+                    <i class="pi pi-exclamation-triangle" style="font-size: 3em"></i>
+                    <h3>{{message.summary}}</h3>
+                    <p>{{message.detail}}</p>
+                  </div>
+                  <div class="ui-g ui-fluid">
+                    <div class="ui-g-6">
+                      <button type="button" pButton (click)="onConfirm()" class="btn btn-custom btn-sm">Confirm</button>
+                    </div>
+                    <div class="ui-g-6">
+                      <button type="button" pButton (click)="onReject()" class="btn btn-primary btn-sm">Cancel</button>
+                    </div>
+                  </div>
+                </ng-template>
+              </p-toast>
+            </div>
+  
+      </form>
+    </div>
+  </div>
+
+</div>

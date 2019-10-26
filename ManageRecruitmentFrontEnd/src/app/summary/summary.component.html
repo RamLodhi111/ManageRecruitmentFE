@@ -1,0 +1,187 @@
+<!-- <div class="container-fluid">
+    <div class="col-sm-12" *ngIf="add_client">
+        <div class="col-sm-12 text-right" *ngIf="add_client">
+            <p-dropdown class="text-left" #dd [options]="role" [style]="{'width':'300px'}" [(ngModel)]="selectedRole"
+                optionLabel="name"></p-dropdown>
+        </div> -->
+<!-- 
+    </div> -->
+
+
+    <div class="container-fluid">
+            <div class="col-sm-12">
+                <div class="col-sm-12 text-right">
+
+    <!-- <h3 class="first">Basic - ({{checked1}})</h3> -->
+<p-toggleButton onLabel="click here to view by Client" offLabel="click here to view by  Candidate" [(ngModel)]="checked1" [style]="{'width':'150px','BACKGROUND-COLOR': '#ffeb3b'}"></p-toggleButton>
+</div>
+</div>
+
+<!-- <h3>Customized - ({{checked2}})</h3>
+<p-toggleButton [(ngModel)]="checked2" onLabel="I confirm" offLabel="I reject" onIcon="pi pi-check" offIcon="pi pi-times" [style]="{'width':'150px'}"></p-toggleButton> -->
+
+    <!-- changes for toggle button -->
+    <!-- {{checked1}} -->
+<div class="row my-4" *ngIf="!checked1" >
+        <div class="col-lg-12" *ngIf="add_client">
+            <p-table [columns]="firstTableCols" [value]="summarylist" [frozenColumns]="frozenTableCols" [scrollable]="true"
+                scrollHeight="195px" frozenWidth="200px" [rows]="7">
+
+                <ng-template pTemplate="caption">
+                    <div class="col" *ngIf="add_client">
+                        <p>CLIENT SUMMARY</p>
+                    </div>
+
+                </ng-template>
+                <ng-template pTemplate="colgroup" let-columns>
+                    <colgroup>
+                        <col *ngFor="let col of columns" style="width:200px">
+
+                    </colgroup>
+                </ng-template>
+                <div *ngIf="add_client"> -->
+                    <ng-template pTemplate="header" let-columns>
+                        <tr>
+                            <th *ngFor="let col of columns">
+                                {{col.header}}
+                            </th>
+
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-expanded="expanded" let-columns="columns" *ngIf="add_client">
+                        <tr>
+                            <td *ngFor="let col of columns" [ngClass]="getColourCode(rowData[col.field],col.header)">
+                                {{rowData[col.field]}}
+                            </td>
+                        </tr>
+                    </ng-template>
+                </div>
+
+            </p-table>
+
+        </div>
+    </div>
+
+
+
+    <div class="container" *ngIf="!add_client">
+        <div class="row">
+            <div class="form-wrapper  col-md-6 col-md-offset-3">
+                <form [formGroup]="addClientForm" class="form-group">
+
+                    <legend>Add Client</legend>
+
+                    <label for="client" class="input">Client Name</label>
+                    <input name="client" class="form-control" type="text" placeholder="" [formControl]="addClientForm.controls['client']">
+                    <div class="alert alert-danger" *ngIf="addClientForm.controls['client'].invalid && addClientForm.controls['client'].touched">
+                          <i>Client name is required</i>                   
+                    </div><br>
+                    <label for="lead" class="input">Lead</label>
+                    <input name="lead" class="form-control" type="lead" placeholder="" [formControl]="addClientForm.controls['lead']">
+                    <div class="alert alert-danger" *ngIf="addClientForm.controls['lead'].invalid &&
+                                 addClientForm.controls['lead'].touched">
+
+                          <i>Lead name is required </i>                   
+                    </div>
+                    <!-- <div class="alert alert-danger" *ngIf="addClientForm.controls['lead'].invalid &&
+                                 addClientForm.controls['lead'].touched">
+                              <i>This lead is already taken. </i>                  
+                        </div> -->
+                    <br>
+                    <label for="location" class="input">Location</label>
+                    <input name="location" class="form-control contact" type="text" placeholder="" [formControl]="addClientForm.controls['location']">
+                    <div class="alert alert-danger" *ngIf="addClientForm.controls['location'].invalid && addClientForm.controls['location'].touched">
+                          <i>Location is mandatory </i>                   
+                    </div><br>
+                    <label for="skills" class="input">Skills</label>
+                    <input name="skills" class="form-control" type="skills" placeholder="" [formControl]="addClientForm.controls['skills']">
+                    <div class="alert alert-danger" *ngIf="addClientForm.controls['skills'].invalid &&
+                                 addClientForm.controls['skills'].touched">
+                          <i>Skills must be entered</i>                   
+                    </div><br>
+                    <label for="contractMechanism" class="input">ContractMechanism</label>
+                    <input name="contractMechanism" class="form-control" type="contractMechanism" placeholder=""
+                        [formControl]="addClientForm.controls['contractMechanism']">
+                    <div class="alert alert-danger" *ngIf="addClientForm.controls['contractMechanism'].invalid &&
+                                   addClientForm.controls['contractMechanism'].touched">
+                          <i>ContractMechanism must be entered</i>    
+                    </div><br>
+                    <label for="target" class="input">Target</label>
+                    <input name="target" class="form-control" type="target" placeholder="" [formControl]="addClientForm.controls['target']">
+                    <div class="alert alert-danger" *ngIf="addClientForm.controls['target'].invalid &&
+                                       addClientForm.controls['target'].touched">
+                          <i>Target must be entered</i>  
+                         </div><br>
+                    <div class="form-group">
+                        <button [disabled]="!addClientForm.valid" class="btn btn-primary" (click)="onSubmit()">Add
+                            Client</button>
+                        <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Candidate summary  changes  -->
+    <!-- {{checked1}} -->
+    <div class="row my-4" *ngIf="checked1">
+        <div class="col-12">
+            <!--  Candidate summary changes ends here for table -->
+            <p-table #dt [columns]="cols" [value]="candidateSummary" [paginator]="true" [rows]="4">
+                <ng-template pTemplate="caption">
+                    <div class="col">
+                        <p>CANDIDATE SUMMARY</p>
+                    </div>
+
+                </ng-template>
+                <ng-template pTemplate="header" let-columns>
+
+                    <tr style="text-align:center">
+                        <th col width="120" text-align="center">Candidate Name</th>
+                        <th col width="120" text-align="center">Client Name</th>
+                        <th col width="120" text-align="center">Skills</th>
+                        <th col width="120" text-align="center">Status</th>
+                        <th col width="210" text-align="center">Email Id </th>
+                        <th col width="120" text-align="center">Location</th>
+                        <th col width="120" text-align="center">Expected to Join</th>
+                        <th col width="100" text-align="center">Final Tech Selection</th>
+
+                    </tr>
+
+
+                    <tr style="height:2px;margin: 2px">
+                        <th *ngFor="let col of columns" [ngSwitch]="col.field" [ngClass]="'filter-header'">
+
+                            <p-multiSelect *ngSwitchCase="'clientName'" [options]="clients" [style]="{'width':'100%'}"
+                                defaultLabel="All" (onChange)="dt.filter($event.value, col.field, 'in')"></p-multiSelect>
+                            <p-dropdown *ngSwitchCase="'finalStatus'" [options]="status" defaultLabel="All" [style]="{'width':'100%'}"
+                                (onChange)="dt.filter($event.value, col.field, 'equals')"></p-dropdown>
+                            <p-dropdown *ngSwitchCase="'location'" [options]="locations" defaultLabel="All" [style]="{'width':'100%'}"
+                                (onChange)="dt.filter($event.value, col.field, 'equals')"></p-dropdown>
+                            <input *ngSwitchCase="'expectedToJoin'" pInputText type="text" size="9" placeholder=" Search"
+                                (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+
+                        </th>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="body" let-candidateSummary>
+                    <tr [pSelectableRow]="candidateSummary">
+                        <td>{{candidateSummary.candidateName}}</td>
+                        <td>{{candidateSummary.clientName || 'NA'}}</td>
+                        <td>{{candidateSummary.skills || 'NA'}}</td>
+                        <td [ngClass]="getColorCodeByDate(candidateSummary.finalStatus, candidateSummary)">{{candidateSummary.finalStatus || 'NA'}}</td>
+                        <td style="word-wrap: break-word;">{{candidateSummary.emailId || 'NA'}}</td>
+                        <td>{{candidateSummary.location || 'NA'}}</td>
+                        <td>{{candidateSummary.expectedToJoin || 'NA'}}</td>
+                        <td>{{candidateSummary.finalTechSelection || 'NA'}}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+
+        </div>
+
+    </div>
+
+</div>

@@ -1,11 +1,12 @@
-﻿<div class="container__wrapper">
+﻿<div class="container__wrapper my-5">
         <!-- <p  align="right"><a [routerLink]="['/login']">Logout</a></p> -->
         <h5 class="mb-3 text-capitalize">
-            <strong>LIST OF CANDIDATES & RECRUITMENT STATUS</strong>
+            <strong *ngIf="add_candidate">List of candidates & recruitment status</strong>
         </h5>
+
         
-<div class="content-section implementation ui-fluid">
-<p-table #dt [columns]="cols" [value]="candidatures" selectionMode="single"  [paginator]="true" [rows]="15" dataKey="contactNo" (onRowSelect)="onRowSelect($event)">
+<div class="content-section implementation ui-fluid" *ngIf="add_candidate">
+<p-table #dt [columns]="cols" [value]="candidatures" [(selection)]="selectedCandidatures" [paginator]="true" [rows]="5" dataKey="contactNo">
         
     <ng-template pTemplate="caption">
         <div class="row">
@@ -13,7 +14,7 @@
                 <!--Code for Search.-->   
                 <div class="text-left" style="position: realtive;">
                     <i class="fa fa-search icon-showcase"></i>
-                    <input type="text" class="form-control form-control-sm" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                    <input type="text" class="form-control form-control-sm" pInputText size="50" placeholder="Global search" (input)="dt.filterGlobal($event.target.value, 'contains')"[(ngModel)]="filetrValue"style="width:auto">
                 </div>
             </div>
             <div class="col">
@@ -22,35 +23,38 @@
                     <button class="btn btn-link btn-sm" (click)="exportAsXLSX()">
                         Export <i class="fa fa-file-excel-o"></i>
                     </button>
+
+                    <a href="javascript:void(0)" class="btn btn-custom btn-sm btn--depressed" *ngIf="isAdmin && add_candidate" (click)="toggleAddState()">Add   </a>
+                    <a href="javascript:void(0)" class="btn btn-custom btn-sm btn--depressed" (click)="editCandidate()" *ngIf="isAdmin && (selectedCandidatures.length == 0 || selectedCandidatures.length == 1)">Edit  </a>
+                    <a href="javascript:void(0)" class="btn btn-custom btn-sm btn--depressed" (click)="deleteCandidate()" *ngIf="isAdmin" >Delete</a>
                 </div>
             </div>
         </div>
     </ng-template>
+<!-- 
+code for delete -->
     <ng-template pTemplate="header" let-columns>
             <tr>
-                    <th style="width: 3em"></th>   
-              <th *ngFor="let col of columns" >{{col.header}} </th>
+
+                <th style="width: 3em">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th *ngFor="let col of columns">
+                    {{col.header}}
+                </th>         
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-rowData let-expanded="expanded" let-columns="columns">
-          <tr [pSelectableRow]="rowData">
+          <tr   [pSelectableRow]="rowData">
                 <td>
-                        <a href="#" [pRowToggler]="rowData">
-                            <i [ngClass]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
-                        </a>
+                    <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+                </td>
+                    <td *ngFor="let col of columns">
+                       <a (click)="viewCandidate(rowData)" >{{rowData[col.field]}}</a>
                     </td>
-            <td *ngFor="let col of columns" >
-                {{rowData[col.field]}}
-            </td>
         </tr>
     </ng-template>
-   
-       
 </p-table>
-
-<!--Code for Dialog display-->
-
-
 </div>
  
 </div>

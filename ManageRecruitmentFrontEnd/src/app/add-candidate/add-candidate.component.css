@@ -1,0 +1,65 @@
+
+.form-wrapper form {
+    padding: 40px 80px;
+    background: #fff;
+    border: 0px solid #ccc;
+    color: grey;
+    box-shadow: 0 7px 14px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
+    animation-name: fadein;
+    animation-duration: 2s;
+
+}
+.form-wrapper button:hover {
+  background-color: #EF7745;
+}
+
+.ng-invalid.ng-touched {
+  border-color: red;
+}
+
+.fieldsetcenter {
+  text-align:center;
+}
+
+
+.fake-link {
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.ui-steps .ui-steps-item {
+  width: 25%;
+}
+
+.ui-steps.steps-custom {
+  margin-bottom: 30px;
+}
+
+.ui-steps.steps-custom .ui-steps-item .ui-menuitem-link {
+  height: 10px;
+  padding: 0 1em;
+}
+
+.ui-steps.steps-custom .ui-steps-item .ui-steps-number {
+  background-color: #0081c2;
+  color: #FFFFFF;
+  display: inline-block;
+  width: 36px;
+  border-radius: 50%;
+  margin-top: -14px;
+  margin-bottom: 10px;
+}
+
+.ui-steps.steps-custom .ui-steps-item .ui-steps-title {
+  color: #555555;
+}
+
+.invalid-feedback{
+  display: flex !important;
+}
+
+.error-message{
+  text-align: center;
+  color: red;
+}

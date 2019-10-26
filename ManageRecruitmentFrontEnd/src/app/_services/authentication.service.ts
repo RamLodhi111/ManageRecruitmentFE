@@ -1,12 +1,13 @@
 ﻿import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { map, catchError } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
+import { Observable, throwError } from 'rxjs';
 
 @Injectable()
 export class AuthenticationService {
-    API_URL  =  'http://localhost:9000';
+    API_URL  =  'https://recruitmentportalapp.cfapps.io';
 
     constructor(private http: HttpClient) { }
 
@@ -26,8 +27,21 @@ export class AuthenticationService {
                 }
 
                 return user;
-            }));
+            }),catchError(this.handleError));
     }
+
+    handleError(error) {
+        let errorMessage = '';
+        if (error.error instanceof ErrorEvent) {
+          // client-side error
+          errorMessage = `Error: ${error.error.message}`;
+        } else {
+          // server-side error
+          errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+        }
+        window.alert(errorMessage);
+        return throwError(errorMessage);
+      }
 
     logout() {
         // remove user from local storage to log user out

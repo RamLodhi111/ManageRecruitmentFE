@@ -1,51 +1,76 @@
 ﻿<!-- main app container -->
 <script src="assets/js/canvasjs.min.js"></script>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark" >
-    <a class="navbar-brand" href="/"><img src="assets/image/ey-logo-white.png" width="50" alt="EY Recruitment System" title="EY Recruitment System"></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-  
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto" *ngIf="showHead">
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/dashboard" routerLinkActive="active-link">DASHBOARD <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/upload" routerLinkActive="active-link">UPLOAD</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/home" routerLinkActive="active-link">VIEW ALL CANDIDATES</a>
-        </li>
-      </ul>
-      <ul class="navbar-nav" *ngIf="showHead">
+<body>
+  <div class="content">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="/"><img src="assets/image/ey-logo-white.png" width="50" alt="EY Recruitment System"
+          title="EY Recruitment System"></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      {{role}}
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto" *ngIf="showHead">
           <li class="nav-item">
-                <span class="navbar-text">
-              Logged in as <strong>Rajasekar</strong>, <a href="/">Logout</a>
-              </span>
+            <a class="nav-link" routerLink="/summary" routerLinkActive="active-link">HOME <span
+                class="sr-only">(current)</span></a>
           </li>
-      </ul>
-    </div>
-</nav>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/dashboard" routerLinkActive="active-link">DASHBOARD</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/reports" routerLinkActive="active-link">REPORTS</a>
+          </li>
 
-<!--<div class="jumbotron">-->
-    <div class="container-fluid">
-        <div class="row">
-                <!-- col-sm-6 offset-sm-3 -->
-            <div class="col-sm-12">
-                <alert></alert>
-                <router-outlet></router-outlet>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/home" routerLinkActive="active-link">CANDIDATES</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/client" routerLinkActive="active-link">CLIENTS</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/upload" routerLinkActive="active-link">UPLOAD</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav" *ngIf="showHead">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              <strong>{{username | titlecase}}</strong>
+            </a>
+
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              {{getUserAccess()}}
+              <a *ngIf="isAdmin" class="dropdown-item" routerLink="/notification">Approval</a>
+              <a class="dropdown-item" routerLink="/" routerLinkActive="active-link">Logout</a>
             </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!--<div class="jumbotron">-->
+    <div class="container-fluid">
+      <div class="row">
+        <!-- col-sm-6 offset-sm-3 -->
+        <div class="col-sm-12">
+          <alert></alert>
+          <router-outlet></router-outlet>
         </div>
+      </div>
     </div>
-<!--</div>-->
+    <!--</div>-->
+  </div>
 
-<footer class="yellow footer__copyright text-center small">
 
-        <!-- Copyright -->
-        <div class="footer__content">© 2018 Copyright:The EY Home Page is proprietary and confidential. For internal use only. All Rights Reserved.</div>
-        <!-- Copyright -->
-      
-      </footer>
+  <footer class="yellow footer__copyright text-center py-3">
 
+    <!-- Copyright -->
+    <div class="footer__content">© 2019 Copyright:The EY Home Page is proprietary and confidential. For internal use
+      only. All Rights Reserved.</div>
+    <!-- Copyright -->
+  </footer>
+</body>

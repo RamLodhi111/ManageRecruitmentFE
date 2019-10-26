@@ -1,0 +1,94 @@
+<div class="container-fluid">
+  <!-- Approvals list changes  -->
+  <div class="row my-4">
+    <div class="col-12" style="padding-left: 80px">
+     
+      <p-table #dt [columns]="approvalColumns" [value]="approvalList" [paginator]="true" [rows]="5">
+        <ng-template pTemplate="caption" *ngIf="message!='undefined'">
+            <p style="text-align: center;font-weight: bold">APPROVALS LIST</p>
+          <div class="col">
+            <h6 [ngClass]="msg"> {{message}}</h6>
+          </div>
+
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th col width="100">Name</th>
+            <th col width="150">Email Id</th>
+            <th col width="100">Status</th>
+            <th col width="130">Role</th>
+            <th col width="120">Comments</th>
+            <th col width="150"> Approve/Reject</th>
+            <th col width="130">Approve/Reject By</th>
+            
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-approvalList let-expanded="expanded" let-columns="columns" index=index+1;>
+
+          <!--*ngIf="approvalList.status=='Pending for approval'"-->
+          <tr>
+            <td>{{approvalList.firstName + space +approvalList.lastName}}</td>
+            <td>{{approvalList.emailId}}</td>
+            <td>{{approvalList.status}}</td>
+            <td><span class="dropdown-toggle"id="navbarDropdown" data-toggle="dropdown" style="font-size: 100%;">
+              {{approvalList.role}}
+            </span>
+
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a *ngIf="approvalList.role!='ROLE_ADMIN'" class="dropdown-item" (click)="chaneRole(approvalList,'ROLE_ADMIN')">ROLE_ADMIN</a>
+                    <a *ngIf="approvalList.role!='ROLE_USER'"class="dropdown-item" (click)="chaneRole(approvalList,'ROLE_USER')">ROLE_USER</a>
+                  </div>
+            </td>
+            <td>
+              <input type="text" class="form-control form-control-sm"id="comments" style="width: 90%"    pInputText  [(ngModel)]="approvalList.comments"  *ngIf="approvalList.status=='Pending for approval'; else displayComment">
+          
+              <ng-template #displayComment>
+               {{approvalList.comments}}
+              </ng-template>
+            </td>
+            <td>
+              <span>
+                <button type="button" [disabled]="approvalList.status === 'Approved'" class="btn btn-success" (click)="triggerApprovalEvent('Approve',approvalList)">Approve</button>
+
+                <button type="button" [disabled]="approvalList.status === 'Rejected'" class="btn btn-warning" (click)="triggerApprovalEvent('Reject',approvalList)">Reject</button>
+              </span>
+            </td>
+            <td>{{approvalList.approver | titlecase}}</td>
+          </tr>
+
+
+          <div class="content-section implementation">
+            <p-toast [style]="{marginTop: '80px'}"></p-toast>
+
+            <p-toast [style]="{marginTop: '80px'}" position="top-left" key="tl"></p-toast>
+
+            <p-toast [style]="{marginTop: '80px'}" position="top-center" key="tc"></p-toast>
+
+            <p-toast [style]="{marginTop: '80px'}" styleClass="custom-toast" key="custom" position="bottom-center"></p-toast>
+
+            <p-toast position="center" key="c" (onClose)="onReject()" [modal]="true" [baseZIndex]="5000">
+              <ng-template let-message pTemplate="message">
+                <div class="text-center p-4">
+                  <i class="pi pi-exclamation-triangle" style="font-size: 3em"></i>
+                  <h3>{{message.summary}}</h3>
+                  <p>{{message.detail}}</p>
+                </div>
+                <div class="ui-g ui-fluid">
+                  <div class="ui-g-6">
+                    <button type="button" pButton (click)="onConfirm()" class="btn btn-custom">Confirm</button>
+                  </div>
+                  <div class="ui-g-6">
+                    <button type="button" pButton (click)="onReject()" class="btn btn-secondary-custom">Cancel</button>
+                  </div>
+                </div>
+              </ng-template>
+            </p-toast>
+          </div>
+        </ng-template>
+      </p-table>
+
+    </div>
+
+  </div>
+</div>

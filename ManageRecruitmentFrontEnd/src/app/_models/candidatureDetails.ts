@@ -1,48 +1,43 @@
 export class CandidatureDetails {
-    id:string;
-	roleOfResponsibilities:string;
-	positionLocation:string;
-	candidateName:string;
-	contactNo:string;
-	emailId:string;
-	totalExperience:string;
-	relevantExperience:string;
-	noticePeriod:string;
-	ctc:string;
-	ectc:string;
-	currentLocation:string;
-	preferredLocation:string;
-	modeOfHiring:string;
-	vendorName:string;
-	profileSharedDate:string;
-	screeningStatus:string;
-	screeningDate:string
-	screeningDoneBy:string;
-	firstRoundStatus:string;
-	firstRoundDate:string
-	firstRoundTakenBy:string;
-	secondRoundStatus:string;
-	secondRoundDate:string
-	secondRoundTakenBy:string;
-	finalRoundStatus:string;
-	finalRoundDate:string
-	finalRoundTakenBy:string;
-	hrOrPnStageRound:string;
-	hrOrPnStageStatus:string;
-	hrOrPnStageDate:string
-	candidatureStatus:string;
-	finalStatus:string;
-	status:string;
-	description:string;
-	offerRollOutDate:string
-	joiningDate:string
-	joiningStatus:string;
-	nhrId:string;
-	comments:string;
-	action:string;
-	actionPending:string;
-	client:string;
-	profile:string;
-	lastUpdateDate:string
+    id : string;
+	roleOfResponsibilities: string;
+	candidateName : string;
+	contactNo : string;
+	emailId : string;
+	totalExperience : string;
+	relevantExperience : string;
+	noticePeriod : string;
+	ctc : string;
+	expectedCTC : string;
+    currentLocation : string;
+	preferredLocation : string;
+	positionLocation : string;
+	modeOfHiring : string;
+	source : string;
+	profileSharedDate : string;
+	screeningStatus : string;	
+	screeningDate : string;	
+	screeningDoneBy : string;
+	firstRoundStatus : string;
+	firstRoundDate : string;
+	firstRoundTakenBy : string;
+	secondRoundStatus : string;
+	secondRoundDate : string;
+	secondRoundTakenBy : string;
+	finalRoundStatus : string;
+	finalRoundDate : string;
+	finalRoundTakenBy : string;
+	hrOrPnStageRound : string;
+	hrOrPnStageStatus : string;
+	hrOrPnStageDate : string;
+	finalStatus : string;
+	status : string;	
+	description : string;
+	actionPending : string;
+	client : string;
+	profileStatus : string;
+	statusUpdatedDate : string;
+	expectedJoiningDate : string;
+	finalTechSelectionDate: string;
        
 }

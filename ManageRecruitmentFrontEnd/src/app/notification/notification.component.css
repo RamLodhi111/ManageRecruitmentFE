@@ -1,0 +1,20 @@
+.col-12 {
+    flex: 0 0 90%;
+    max-width: 90%;
+
+    padding-left: 15%;
+}
+
+.btn{
+    padding: 0rem 0rem !important;
+    height: 30px;
+    width: 60px;
+}
+.msg-approved{
+    color: green;
+    font-weight: bold;
+}
+.msg-rejected{
+    color: red;
+    font-weight: bold;
+}

@@ -1,0 +1,141 @@
+<div class="container-fluid">
+
+    <div class="row my-4" *ngIf="!add_client">
+      <div class="col-lg-12">
+        <p-table [columns]="cols" [value]="clients" (onRowSelect)="onRowSelect()" (onRowUnselect)="onRowUnSelect()"
+          [(selection)]="selectedClients" dataKey="clientName">
+          <ng-template pTemplate="caption">
+            <div class="row">
+  
+              <div class="col">
+                <h5 class="mb-3 text-capitalize">
+                  <strong>List of Clients</strong>
+                </h5>
+  
+              </div>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th style="width: 3em">
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+              </th>
+              <th *ngFor="let col of columns">
+                {{col.header}}
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr [pSelectableRow]="rowData">
+              <td>
+                <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+              </td>
+              <td *ngFor="let col of columns">
+                {{rowData[col.field]}}
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="summary">
+            <a href="javascript:void(0)" class="btn btn-custom btn-sm btn--depressed" *ngIf="isButtonDisabled && isAdmin"
+              (click)="toggleEditClient()">Edit</a>
+            <a href="javascript:void(0)" class="btn btn-custom btn-sm btn--depressed" *ngIf="isAdmin" (click)="deleteClients()">Delete</a>
+            <a href="javascript:void(0)" class="btn btn-custom btn-sm btn--depressed" *ngIf="isAdmin" (click)="toggleAddClient()">Add</a>
+          </ng-template>
+        </p-table>
+  
+      </div>
+    </div>
+  
+    <!--   Add Client Start   -->
+    <div class="container" *ngIf="add_client && isAdmin">
+      <br>
+      <div class="row">
+        <div class="form-wrapper  col-md-6 col-md-offset-3">
+          <form [formGroup]="addClientForm" class="form-group">
+  
+            <legend style="text-align:center">Add Client</legend>
+            <label for="clientName" class="input">Client Name</label>
+            <input name="clientName" class="form-control" type="text" placeholder=""
+              [formControl]="addClientForm.controls['clientName']"  [readonly]="isEditale">
+            
+            <!-- <label for="clientName" class="input">Client Name</label>
+  
+            <mat-form-field >
+              <input name="clientName" class="form-control" type="text" placeholder="" aria-label="Number"
+                matInput [formControl]="addClientForm.controls['clientName']" [readonly]="isEditale" [matAutocomplete]="auto">
+              <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                <mat-option *ngFor="let option of filteredClients | async" [value]="option">
+                  {{option}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field> -->
+  
+            <div class="alert-danger"
+              *ngIf="addClientForm.controls['clientName'].invalid && addClientForm.controls['clientName'].touched">
+                <i>Client name is required</i>                   
+            </div><br>
+  
+  
+  
+  
+  
+  
+  
+            <label for="leadName" class="input">Lead</label>
+            <input name="leadName" class="form-control" type="leadName" placeholder=""
+              [formControl]="addClientForm.controls['leadName']">
+            <div class="alert-danger" *ngIf="addClientForm.controls['leadName'].invalid &&
+                                 addClientForm.controls['leadName'].touched">
+  
+                <i>Lead name is required </i>                   
+            </div>
+            <br>
+            <label for="location" class="input">Location</label>
+            <select name="location" class="form-control contact" placeholder=""
+              [formControl]="addClientForm.controls['location']">
+              <option *ngFor="let location of locationList" [ngValue]="location">{{location}}</option>
+            </select>
+            <div class="alert-danger" *ngIf="addClientForm.controls['location'].invalid &&
+                                 addClientForm.controls['location'].touched">
+                <i>Location is required</i>                   
+            </div>
+            <br>
+  
+  
+            <label for="skill" class="input">Skills</label>
+            <input name="skill" class="form-control" type="skill" placeholder=""
+              [formControl]="addClientForm.controls['skill']">
+            <div class="alert-danger" *ngIf="addClientForm.controls['skill'].invalid &&
+                                 addClientForm.controls['skill'].touched">
+                <i>Skills is required</i>                   
+            </div><br>
+            <label for="contractMechanism" class="input">ContractMechanism</label>
+            <select name="contractMechanism" class="form-control contact" placeholder=""
+              [formControl]="addClientForm.controls['contractMechanism']">
+              <option *ngFor="let contract of contractMechanismList" [ngValue]="contract">{{contract}}</option>
+            </select>
+            <div class="alert-danger" *ngIf="addClientForm.controls['contractMechanism'].invalid &&
+                                   addClientForm.controls['contractMechanism'].touched">
+                <i>ContractMechanism is required</i>    
+            </div><br>
+            <label for="target" class="input">Target</label>
+            <input name="target" class="form-control" type="number" placeholder=""
+              [formControl]="addClientForm.controls['target']">
+            <div class="alert-danger" *ngIf="addClientForm.controls['target'].invalid &&
+                                       addClientForm.controls['target'].touched">
+                <i>Target is required</i>  
+               </div><br>
+            <div class="form-group">
+              <button [disabled]="!addClientForm.valid" class="btn btn-primary"
+                (click)="addClient(clientOpts)">{{clientOpts}}</button>
+  
+              <button class="btn btn-primary" (click)="CancelAddClient()">Cancel</button>
+  
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!--   Add Client END   -->
+  
+  </div>

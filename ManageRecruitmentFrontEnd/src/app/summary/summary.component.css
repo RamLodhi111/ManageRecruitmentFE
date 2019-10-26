@@ -1,0 +1,144 @@
+.headingcenter {
+    text-align: center;   
+ }
+
+ .container-fluid {
+    padding-right: 5%;
+    padding-left: 5%;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .In-Place {
+   background-color:#08d657 !important;
+   color: #ffffff !important;
+}
+
+.Yet-to-start {
+   /* background-color:#f44336 !important; */
+   color: #f44336 !important;
+   font-weight: 500;
+}
+
+.In-Progress {
+   /* background-color:#ffbf00 !important; */
+   color: #ffbf00 !important;
+   font-weight: 500;
+}
+
+.yts{
+   /* background-color: #00c851 !important; */
+   color:#00c851;
+   font-weight: 500;
+   font-family: Arial, Helvetica, sans-serif
+   
+   }   
+
+   /* .default{
+     background-color:#ffbf00 !important;
+     color: white;
+     
+     }   */
+
+     .tbs{
+       /* background-color:white !important; */
+       color: green !important;
+       font-weight: 500;
+       font-family: Arial, Helvetica, sans-serif
+       
+       }  
+
+       .joined{
+         /* background-color:#00c851 !important; */
+         color:#00c851 !important;
+         font-weight: 500;
+         font-family: Arial, Helvetica, sans-serif
+         
+         } 
+
+
+         .OfferInProgress{
+           /* background-color:#ffbf00!important; */
+           color: #ffbf00 !important;
+           font-weight: 500;
+           font-family: Arial, Helvetica, sans-serif
+           
+         }
+
+         .OfferRelaesed{
+           /* background-color:#ffbf00 !important; */
+           color:#ffbf00 !important;
+           font-weight: 500;
+           font-family: Arial, Helvetica, sans-serif
+         }
+#emailId{
+ width: 200px;
+}
+
+.filter-header {
+  padding: 0em 0.571em 0em 0.857em !important;
+  padding-right: 0em;
+  height: 15%;
+  font-size: 17px;
+  width:100%;
+}
+.filter-label{
+    height: 15%;
+    font-size: 10px;
+    width:100%;
+    color: red !important;
+
+}
+
+
+
+
+.container {
+  margin-left: 30% !important;
+}
+
+.logo-wrapper .logo {
+  width: 14%;
+  margin: 0 auto;
+}
+.logo-wrapper .logo img {
+  width: 100%;
+}
+.form-wrapper {
+    padding: 40px 10px;
+}
+
+
+.form-wrapper form {
+    padding: 40px 80px;
+    background: #fff;
+    border: 0px solid #ccc;
+    color: grey;
+    box-shadow: 0 7px 14px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
+    animation-name: fadein;
+    animation-duration: 2s;
+
+}
+.form-wrapper button:hover {
+  background-color: #EF7745;
+}
+
+.ng-invalid.ng-touched {
+  border-color: red;
+}
+
+.fieldsetcenter {
+  text-align:center;
+}
+
+
+.fake-link {
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.ui-button-text {
+  color: #666 !important;
+  background: #ffeb3b !important;
+}

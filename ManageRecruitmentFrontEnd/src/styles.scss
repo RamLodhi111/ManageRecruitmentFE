@@ -14,14 +14,19 @@
         }
     }
 }
-.footer {
-    &__copyright {
-        padding: 3rem 1rem;
-    }
-    &__content {
-        opacity: 0.6;
-    }
-}
+html {
+    height: 100%;
+  }
+  body {
+    min-height: 100%;
+    display: grid;
+    grid-template-rows: 1fr auto;
+  }
+  .footer {
+    grid-row-start: 2;
+    grid-row-end: 3;
+  }
+
 
 .btn {
     &.yellow {
@@ -33,7 +38,8 @@
 .container {
     &__wrapper {
         min-height: 80vh;
-        padding: 2rem 1rem;
+        // padding: 2rem 1rem;
+        padding: 0 1rem;
     }
     &__display {
         line-height: 2;
@@ -108,6 +114,9 @@
             color: #333 !important;
         }
     }
+    &--depressed {
+        box-shadow: none !important;
+    }
 }
 body .ui-widget {
     font-family: "Roboto", sans-serif !important;
@@ -144,7 +153,35 @@ body .ui-toast .ui-toast-message.ui-toast-message-warn {
 }
 
 .nav-link {
+    font-size: 14px;
     &.active-link {
-        font-weight: 700;
+        font-weight: 500;
     }
 }
+
+.navbar.navbar-dark .navbar-nav .nav-item .nav-link {
+    color: #dddfe9 !important;
+    &:hover {
+        color: darken(#dddfe9, 3%) !important;
+    }
+    &.active-link {
+        color: #fff !important;
+    }
+}
+
+.dropdown.show .dropdown-menu {
+    opacity: 5 !important;
+    width: 0.5%;
+    margin-block-end: 20px;
+    margin-right: 20%;
+}
+
+#navbarDropdown{
+    font-size: 110%;
+}
+
+.registeration-form {
+    margin-top: 0em !important;
+    margin-right: 75em !important;
+    margin-left: 30em !important;
+} 

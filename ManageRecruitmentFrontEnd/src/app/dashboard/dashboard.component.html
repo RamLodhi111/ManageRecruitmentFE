@@ -1,47 +1,49 @@
-<br>
-<div class="row">
-    <div class="col-sm-2">
-    <h6><b>Select Type Of Reports</b></h6> 
-    <u class="list-unstyled">
-        <li>
-            <div class="form-check">
-                <input  type="radio" name="groupOfDefaultRadios" (change)="onRadioSelect($event,'client')" id="clientcheck">
-                <label class="form-check-label" >
-                  Client wise report
-                </label>
-              </div>
-        </li>
-      <li>
-          <div class="form-check">
-              <input  type="radio" name="groupOfDefaultRadios"   (change) ="onRadioSelect($event,'skill')"  >
-              <label class="form-check-label" >
-                Skill wise report
-              </label>
-            </div>
-      </li>
-      <li>
-          <div class="form-check">
-              <input  type="radio" name="groupOfDefaultRadios" (change)="onRadioSelect($event,'location');" id="locationcheck">
-              <label class="form-check-label" >
-                Location wise report
-              </label>
-            </div>
-      </li>
-      
-     
-    </u>
+<div class="container-fluid my-5">
 
-
-  <br> <h6><b> Select Type Of Graph</b></h6>
-  <div class="col-sm-2">
-    <div class="text-center">
-        <button type="button" [ngClass]="{'btn': true, 'btn-custom':graphtypeactive, 'btn-secondary-custom':graphtypedeactive }" (click)="changeChart('line')" >Line</button>
-        <button type="button" [ngClass]="{'btn': true, 'btn-custom':graphtypebaractive, 'btn-secondary-custom':graphtypebardeactive }" (click)="changeChart('bar')" >Bar</button>
-        <button type="button" [ngClass]="{'btn': true, 'btn-custom':graphtyperadaractive, 'btn-secondary-custom':graphtyperadardeactive }" (click)="changeChart('radar')">Radar</button>
+    <div class="row">
+        <div class="col-lg-2">
+        <h6 class="mb-3"><b>Select Type Of Reports</b></h6> 
+        <u class="list-unstyled">
+            <li class="mb-1">
+                <div class="form-check">
+                    <input  type="radio" class="mr-2" checked="checked" name="groupOfDefaultRadios" (change)="onRadioSelect($event,'client')" id="clientcheck">
+                    <label class="form-check-label" for="clientcheck">
+                      Client wise report
+                    </label>
+                  </div>
+            </li>
+         <!-- <li class="mb-1">
+              <div class="form-check">
+                  <input  type="radio" class="mr-2" name="groupOfDefaultRadios"   (change) ="onRadioSelect($event,'skill')" id="skillcheck" >
+                  <label class="form-check-label" for="skillcheck">
+                    Skill wise report
+                  </label>
+                </div>
+          </li>-->
+          <li class="mb-1">
+              <div class="form-check">
+                  <input  type="radio" class="mr-2" name="groupOfDefaultRadios" (change)="onRadioSelect($event,'location');" id="locationcheck">
+                  <label class="form-check-label" for="locationcheck">
+                    Location wise report
+                  </label>
+                </div>
+          </li>
+          
+         
+        </u>
     </div>
+      <div class="col-lg-9">
+          <div class="text-center my-3" *ngIf="pie_chartDatasets.length<1">
+                <p-progressSpinner strokeWidth="1"></p-progressSpinner>
+          </div>
+        <div class="row">
+          <!--Displaying chart-->
+          <div class="col-lg-12" *ngIf="showChart">
+              <div class="chart__wrapper" *ngIf="pie_chartDatasets.length>0">
+    
 </div>
 </div>
-  <div class="col-sm-8">
+  <div class="col-sm-10">
     <div class="row">
      
       <!--Displaying chart-->
@@ -52,103 +54,101 @@
                 [chartType]="pie_chartType"
                 [datasets]="pie_chartDatasets"
                 [labels]="pie_chartLabels"
-                [colors]="pie_chartColors"
-                [options]="pie_chartOptions"
-                [legend]="true"
-                (chartHover)="pie_chartHovered($event)"
-                (chartClick)="pie_chartClicked($event)">
-            </canvas>
+                [options]="barChartOptions"
+                [legend]="barChartLegend"
+                [colors]="backgroundColor"
+                [chartType]="pie_chartType">
+        </canvas>
+              </div>
+            </div>
+    
+    
+          <!--Displaying summary table-->
+          <div class="col-lg-12" style="margin-top: 2%" *ngIf="pie_chartDatasets.length>0" >
+                <p-table  [value]="pie_chartDatasets" *ngIf="showSummaryTable">
+                    <ng-template pTemplate="header" let-columns>
+                        <tr>
+                          
+                          <th *ngIf="checkboxselect ==='client'">Client Name</th>
+                          <th *ngIf="checkboxselect==='skill'">Skill</th>
+                          <th *ngIf="checkboxselect==='location'">Location</th>
+                          <th>Interview In Progress</th>
+                          <th>Joined</th>
+                          <th>Offer In Progress </th>
+                          <th>Offer Released</th>
+                          <th>Screening In Progress</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-pie_chartDatasets >
+                      <tr>
+                                <td>{{pie_chartDatasets.label}}</td>
+                                <td><a href="javascript:void(0)" (click)="displaySubTable(pie_chartDatasets.label,'IntInProg')" >{{pie_chartDatasets.data[0]}}</a></td>
+                                <td><a href="javascript:void(0)" (click)="displaySubTable(pie_chartDatasets.label,'Joined')">{{pie_chartDatasets.data[1]}}</a></td>
+                                <td><a href="javascript:void(0)" (click)="displaySubTable(pie_chartDatasets.label,'OffInProg')">{{pie_chartDatasets.data[2]}}</a></td>
+                                <td><a href="javascript:void(0)" (click)="displaySubTable(pie_chartDatasets.label,'OfferReleased')">{{pie_chartDatasets.data[3]}}</a></td>
+                                <td><a href="javascript:void(0)" (click)="displaySubTable(pie_chartDatasets.label,'ScrInProg')">{{pie_chartDatasets.data[4]}}</a></td>
+                        
+                    </tr>
+                </ng-template>  
+                </p-table> 
           </div>
-        </div>
-
-
-      <!--Displaying summary table-->
-      <div class="col-sm-12" >
-            <p-table  [value]="pie_chartDatasets" *ngIf="showSummaryTable">
-                <ng-template pTemplate="header" let-columns>
-                    <tr>
-                      
-                      <th *ngIf="checkboxselect ==='client'">ClientName</th>
-                      <th *ngIf="checkboxselect==='skill'">Skill</th>
-                      <th *ngIf="checkboxselect==='location'">Location</th>
-                      <th>IntInProg</th>
-                      <th>Joined</th>
-                      <th>OffInProg </th>
-                      <th>ONHold</th>
-                      <th>Rejected</th>
-                      <th>ScrInProg</th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-pie_chartDatasets >
-                  <tr>
-                            <td>{{pie_chartDatasets.label}}</td>
-                            <td><a href="javascript:void(0)" (click)="displaySubTable(pie_chartDatasets.label,'IntInProg')" >{{pie_chartDatasets.data[0]}}</a></td>
-                            <td><a href="javascript:void(0)" (click)="displaySubTable(pie_chartDatasets.label,'Joined')">{{pie_chartDatasets.data[1]}}</a></td>
-                            <td><a href="javascript:void(0)" (click)="displaySubTable(pie_chartDatasets.label,'OffInProg')">{{pie_chartDatasets.data[2]}}</a></td>
-                            <td><a href="javascript:void(0)" (click)="displaySubTable(pie_chartDatasets.label,'ONHold')">{{pie_chartDatasets.data[3]}}</a></td>
-                            <td><a href="javascript:void(0)" (click)="displaySubTable(pie_chartDatasets.label,'Rejected')">{{pie_chartDatasets.data[4]}}</a></td>
-                            <td><a href="javascript:void(0)" (click)="displaySubTable(pie_chartDatasets.label,'ScrInProg')">{{pie_chartDatasets.data[5]}}</a></td>
-                    
-                </tr>
-            </ng-template>  
-            </p-table> 
-      </div>
-      
-<!--Displaying sub table -->
-      <!-- <div class="col-sm-8" >
-          <p-table  #dt [value]="candidatureDetailsArray"  selectionMode="single" *ngIf="showSubTable" >
-              <ng-template pTemplate="header" let-columns>
-                  <tr>
-                    <th>CandidateName</th>
-                    <th>Role</th>
-                    <th>EmailId</th>
-                </tr>
-          </ng-template>
-          <ng-template pTemplate="body" let-subtableData let-expanded="expanded" let-columns="columns">
-                <tr [pSelectableRow]="subtableData">
-                    <td>
-                        <a href="#" [pRowToggler]="subtableData">
-                            <i [ngClass]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
-                        </a>
-                    </td>
-                          <td >{{subtableData.candidateName}}</td>
-                          <td>{{subtableData.roleOfResponsibilities}}</td>
-                          <td>{{subtableData.emailId}}</td>
-              </tr>
-          </ng-template>  
-          </p-table> 
-    </div> -->
-
-    <div class="col-sm-8">
-        <p-table #dt [columns]="cols" *ngIf="showSubTable" [value]="candidatureDetailsArray" selectionMode="single"  [paginator]="true" [rows]="3" dataKey="contactNo" (onRowSelect)="onRowSelect($event)">
-
-            <ng-template pTemplate="header" let-columns>
-                    <tr>
-                            <th style="width: 3em"></th>   
-                      <th *ngFor="let col of columns" >{{col.header}} </th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-rowData let-expanded="expanded" let-columns="columns">
-                  <tr [pSelectableRow]="rowData">
+          
+    <!--Displaying sub table -->
+          <!-- <div class="col-sm-8" >
+              <p-table  #dt [value]="candidatureDetailsArray"  selectionMode="single" *ngIf="showSubTable" >
+                  <ng-template pTemplate="header" let-columns>
+                      <tr>
+                        <th>CandidateName</th>
+                        <th>Role</th>
+                        <th>EmailId</th>
+                    </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-subtableData let-expanded="expanded" let-columns="columns">
+                    <tr [pSelectableRow]="subtableData">
                         <td>
-                                <a href="#" [pRowToggler]="rowData">
-                                    <i [ngClass]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
-                                </a>
-                            </td>
-                    <td *ngFor="let col of columns" >
-                        {{rowData[col.field]}}
-                    </td>
-                </tr>
-            </ng-template>
-           
+                            <a href="#" [pRowToggler]="subtableData">
+                                <i [ngClass]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
+                            </a>
+                        </td>
+                              <td >{{subtableData.candidateName}}</td>
+                              <td>{{subtableData.roleOfResponsibilities}}</td>
+                              <td>{{subtableData.emailId}}</td>
+                  </tr>
+              </ng-template>  
+              </p-table> 
+        </div> -->
+    
+        <div class="col-sm-8">
+            <p-table #dt [columns]="cols" *ngIf="showSubTable" [value]="candidatureDetailsArray" selectionMode="single"  [paginator]="true" [rows]="3" dataKey="contactNo" (onRowSelect)="onRowSelect($event)">
+    
+                <ng-template pTemplate="header" let-columns>
+                        <tr>
+                                <th style="width: 3em"></th>   
+                          <th *ngFor="let col of columns" >{{col.header}} </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-expanded="expanded" let-columns="columns">
+                      <tr [pSelectableRow]="rowData">
+                            <td>
+                                    <a href="#" [pRowToggler]="rowData">
+                                        <i [ngClass]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
+                                    </a>
+                                </td>
+                        <td *ngFor="let col of columns" >
+                            {{rowData[col.field]}}
+                        </td>
+                    </tr>
+                </ng-template>
                
-        </p-table>
-        
-        <!--Code for Dialog display-->
-        
-        
+                   
+            </p-table>
+            
+            <!--Code for Dialog display-->
+            
+            
+            </div>
         </div>
+    
+      </div>
     </div>
-
-  </div>
-</div>
+    </div>

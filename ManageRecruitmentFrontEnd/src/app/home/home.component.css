@@ -1,0 +1,51 @@
+.container {
+  margin-left: 30% !important;
+}
+
+.container-fluid .ui-table .ui-table-tbody > tr.ui-state-highlight {
+  color: #333 !important;
+}
+
+
+/* body .ui-table .ui-table-tbody > tr:nth-child(even).ui-state-highlight */
+
+.logo-wrapper .logo {
+  width: 14%;
+  margin: 0 auto;
+}
+.logo-wrapper .logo img {
+  width: 100%;
+}
+.form-wrapper {
+    padding: 40px 10px;
+}
+
+
+.form-wrapper form {
+    padding: 40px 80px;
+    background: #fff;
+    border: 0px solid #ccc;
+    color: grey;
+    box-shadow: 0 7px 14px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
+    animation-name: fadein;
+    animation-duration: 2s;
+
+}
+.form-wrapper button:hover {
+  background-color: #EF7745;
+}
+
+.ng-invalid.ng-touched {
+  border-color: red;
+}
+
+.fieldsetcenter {
+  text-align:center;
+}
+
+
+.fake-link {
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+}
